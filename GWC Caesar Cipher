@@ -1,0 +1,45 @@
+#This program is inspired by the caesar cipher from Girls' Who Code's Intro to Cryptography Course!
+
+# Global variables
+possibleCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+initialPosition = 0 #represents the first character of the set, but will change
+shiftedPosition = 0 #will change with the loop
+shiftedMessage = ""
+
+# Run code
+
+# Introduction
+print("Welcome! This program will encrypt or decrypt your secret message using the Caesar cipher. \n\nWhen creating your message, you may only choose from the following characters: " + possibleCharacters + "\n\nLet's get started!\n")
+
+# Receive user input
+initialMessage = input("Enter your message.")
+key = int(input("Enter the encryption key. Choose a number between 0 and 25"))
+
+while key<0 or key>25:
+  print("Incorrect value. Please enter a valid one")
+  key = int(input("Enter the encryption key again. Choose between 0 and 25"))
+mode = input("do you want to encrypt or decrypt?").strip().lower()
+
+# Encrypt or decrypt the message
+for character in initialMessage:
+  if character in possibleCharacters:
+    initialPosition = possibleCharacters.find(character)
+    
+    if mode == "encrypt":
+      shiftedPosition = initialPosition + key
+    elif mode == "decrypt":
+      shiftedPosition = initialPosition - key
+  
+    if shiftedPosition>=len(possibleCharacters):
+      shiftedPosition = shiftedPosition - len(possibleCharacters)
+    elif shiftedPosition<0:
+      shiftedPosition = shiftedPosition + len(possibleCharacters)
+  
+    shiftedMessage = shiftedMessage + possibleCharacters[shiftedPosition]
+  else:
+    shiftedMessage = shiftedMessage + character
+
+print("Your" + mode.lower() + "ed message is" + shiftedMessage)
+    
+
+# Print the shifted message
